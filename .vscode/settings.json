@@ -1,0 +1,38 @@
+{
+    "eslint.enable": true,
+    "eslint.workingDirectories": [
+        "frontend",
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "editor.formatOnSave": false,
+    "eslint.format.enable": false,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "git.autofetch": true,
+    "eslint.run": "onSave",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.suggestSelection": "first",
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    "editor.formatOnPaste": true,
+    "i18n-ally.localesPaths": [
+        /* "./server/config/locales", */
+        "./brands_web_app/src/localization",
+        "./ninjas_mobile_app/src/localization"
+    ],
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.enabledFrameworks": [
+        "react-i18next"
+    ]
+}
