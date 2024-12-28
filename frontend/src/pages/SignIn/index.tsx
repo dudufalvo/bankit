@@ -26,10 +26,9 @@ const SignIn = () => {
 
   const signInUser = async (data: SignInType) => {
     const userEmail = data.email
-
-
-    // get all users, filter by email and get user username
     const users = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users`)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const user = users.data.find((user: any) => user.email === userEmail)
 
     const postData = {

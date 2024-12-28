@@ -47,8 +47,7 @@ const SignUp = () => {
         toast.success('Signed up successfully')
         navigate('/')
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
         toast.error('Failed to sign up')
       })
   }

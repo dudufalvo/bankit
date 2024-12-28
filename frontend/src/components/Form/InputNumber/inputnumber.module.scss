@@ -14,14 +14,20 @@
 }
 
 .inlineInput {
-  @include size(5.75rem, 2.5rem);
+  position: relative;
+  @include size(100%, 100%);
   @include flex(row, space-between, center, 0.5rem);
   @include text($montserrat, 1rem, 1.375rem, 400, $darkGray);
   @include container($white, $simpleBorder, $smallRadius, $lightGray, 0.5rem, none);
 
+  &:focus-within {
+    border-color: $greenTwo;
+    outline: none;
+  }
+
   input {
     @include size(100%, 100%);
-    @include text($montserrat, 1rem, 1.375rem, 400, $black);
+    @include text($montserrat, 1rem, 1.25rem, 300, $black);
     border: none;
     outline: none;
   }
@@ -34,5 +40,21 @@
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  .errorInput {
+		border-color: $red;
+		color: $red;
+
+		&::placeholder { color: $red; }
+	}
+
+	.errorIcon, .passwordIcon {
+		position: absolute;
+		right: 1rem;
+		top: 35%;
+		height: 1.05rem;
+		width: auto;
+		color: $red;
   }
 }

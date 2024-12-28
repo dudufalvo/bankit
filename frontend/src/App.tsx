@@ -1,16 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
-import SignIn from 'pages/SignIn'
-import SignUp from 'pages/SignUp'
-import Home from 'pages/Home'
-import Account from 'pages/Account'
-
-import { PrivateRoute, NotAuthenticatedRoute } from 'utils/routes'
-import { UserProvider } from 'contexts/userContext'
-import { Navbar } from './components/Navbar'
 import { Outlet } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
+
+import { Navbar } from './components/Navbar'
+
+import { UserProvider } from 'contexts/userContext'
+import Account from 'pages/Account'
+import Home from 'pages/Home'
 import LoanCalculator from 'pages/LoanCalculator'
+import SignIn from 'pages/SignIn'
+import SignUp from 'pages/SignUp'
+import { PrivateRoute, NotAuthenticatedRoute } from 'utils/routes'
+
 
 const App = () => {
   return (
@@ -18,7 +19,8 @@ const App = () => {
       <Routes>
         <Route element={<NotAuthenticatedRoute />} >
           <Route path='/sign-up' element={<SignUp />} />
-          <Route path='/sign-in' element={<LoanCalculator />} />
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/loan-calculator' element={<LoanCalculator />} />
         </Route>
         <Route element={<PrivateRoute />} >
           <Route

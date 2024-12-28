@@ -45,6 +45,10 @@
             @include text($size: 0.75rem, $height: 1rem, $weight: 600, $color: $greenTwo);
             text-decoration: none;
           }
+
+          .bottom {
+            @include flex(column, $gap: 0.25rem);
+          }
         }
       }
     }

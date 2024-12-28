@@ -1,13 +1,13 @@
 import { FormProvider } from 'react-hook-form'
 import 'react-toastify/dist/ReactToastify.css'
 
+import type { LoanCalculatorType } from 'pages/LoanCalculator'
 import type { UseFormReturn } from 'react-hook-form/dist/types'
 import type { SignInType, SignUpType, RecoverPasswordType, ResetPasswordType } from 'types/User'
 
 import styles from './authtemplate.module.scss'
 
 import Button from 'components/Button'
-import { LoanCalculatorType } from 'pages/LoanCalculator'
 
 type FormType = SignUpType | SignInType | RecoverPasswordType | ResetPasswordType | LoanCalculatorType
 
@@ -25,7 +25,7 @@ const AuthTemplate = <T extends FormType>({ children, type, methods, handleAuth 
         <div className={styles.authContent}>
           <div className={styles.authContentContainer}>
             <div className={styles.authContentTop}>
-              <h1>{type === 'sign-in' ? 'Welcome back!' : (type == 'sign-up' ? 'Welcome' : "Let's recover your password!")}</h1>
+              <h1>{type === 'sign-in' ? 'Welcome back!' : (type === 'sign-up' ? 'Welcome' : 'Bankit Loan Calculator!')}</h1>
               <h3>{type === 'sign-in' ? 'It\'s never been simpler to schedule your padle games.' : 'Please enter your details.'}</h3>
             </div>
 
@@ -39,10 +39,16 @@ const AuthTemplate = <T extends FormType>({ children, type, methods, handleAuth 
               <Button disabled={!methods.formState.isDirty} type='submit' variant='filled' fullWidth={true} handle={handleAuth}>
                 {type.charAt(0).toUpperCase() + type.slice(1).replace('-', ' ')}
               </Button>
-              {type === 'sign-in'
-                ? <span>Don't have an account? <a href='/sign-up'>Sign Up</a></span>
+              {type === 'sign-in' ? 
+                <div className={styles.bottom}>
+                  <span>Don't have an account? <a href='/sign-up'>Sign Up</a></span>
+                  <span>Want to calculate your loan? <a href='/loan-calculator'>Loan Calculator</a></span>
+                </div>
                 : type === 'sign-up' ?
-                <span>Already have an account? <a href='/sign-in'>Sign In</a></span>
+                <div className={styles.bottom}>
+                  <span>Already have an account? <a href='/sign-in'>Sign In</a></span>
+                  <span>Want to calculate your loan? <a href='/loan-calculator'>Loan Calculator</a></span>
+                </div>
                 : null}
             </div>
           </div>

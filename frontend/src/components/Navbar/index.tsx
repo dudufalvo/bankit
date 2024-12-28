@@ -1,13 +1,15 @@
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { BiChevronDown } from 'react-icons/bi'
-import styles from './navbar.module.scss'
-import { useUser } from 'src/contexts/userContext'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { BiChevronDown } from 'react-icons/bi'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useUser } from 'src/contexts/userContext'
+
 import logo from '../../assets/logo.svg'
 import logoText from '../../assets/logoText.svg'
-/* import logoTextWhite from '../../assets/logoTextWhite.svg' */
+
+import styles from './navbar.module.scss'
+
 
 export const Navbar = () => {
   const navigate = useNavigate()
@@ -22,8 +24,7 @@ export const Navbar = () => {
         toast.success('Logged out successfully')
         navigate('/sign-in')
       })
-      .catch((e) => {
-        console.log(e)
+      .catch(() => {
         toast.error('Failed to logout')
       })
   }
@@ -36,8 +37,6 @@ export const Navbar = () => {
         </a>
         <div className={styles.links}>
           <a href='/'className={''}>Dashboard</a>
-          <a href='/my-centrals'className={''}>My Centrals</a>
-          <a href='/new-central'>New Central</a>          
           <div className={styles.dropdown}>
             <a className={styles.dropdownText} href='/account?tab=settings'>
               <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/2048px-Avatar_icon_green.svg.png' alt="picture" className={styles.profilePicture} />
