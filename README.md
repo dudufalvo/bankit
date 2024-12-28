@@ -1,2 +1,2 @@
 # bankit
-deployment 1.0
+deployment 1.1
