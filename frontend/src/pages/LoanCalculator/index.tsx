@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { loanCalculatorValidationSchema } from 'src/schemas/loanCalculator'
 
 import type { MultiValue, SingleValue } from 'react-select'
@@ -37,8 +36,6 @@ const filtersTypes = [
 
 
 const LoanCalculator = () => {
-  const navigate = useNavigate()
-
   const [selectedVariable, setSelectedVariable] = useState<DropdownOptionType>({ label: 'Amount + Duration', value: '1' })
   const [selectedType, setSelectedType] = useState<DropdownOptionType>({ label: 'Personal Loan', value: '10' })
 
@@ -47,11 +44,13 @@ const LoanCalculator = () => {
   })
 
   const applyLoanValues = async (data: LoanCalculatorType) => {
-    // const loanData: LoanCalculatorType = {
-    //   amount: data.amount,
-    //   duration: data.duration,
-    //   monthly_payment: data.monthly_payment
-    // }
+    const loanData: LoanCalculatorType = {
+      amount: data.amount,
+      duration: data.duration,
+      monthly_payment: data.monthly_payment
+    }
+
+    console.log(loanData)
   }
 
 

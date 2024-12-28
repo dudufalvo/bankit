@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -18,15 +17,9 @@ export const Navbar = () => {
   const { user } = useUser()
 
   const handleLogout = () => {
-    axios.post(`${import.meta.env.VITE_API_BASE_URL}/client/logout`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
-      .then(() => {
-        localStorage.removeItem('token')
-        toast.success('Logged out successfully')
-        navigate('/sign-in')
-      })
-      .catch(() => {
-        toast.error('Failed to logout')
-      })
+    localStorage.removeItem('token')
+    toast.success('Logged out successfully')
+    navigate('/sign-in')
   }
 
   return (

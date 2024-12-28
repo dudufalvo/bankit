@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --skip-ts-check",
+    "build": "tsc && vite build",
     "lint": "node node_modules/eslint/bin/eslint.js src",
     "preview": "vite preview"
   },
