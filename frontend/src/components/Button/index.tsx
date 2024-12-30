@@ -5,10 +5,10 @@ import styles from './button.module.scss'
 const buttonStyles: { [key: string]: string } = {
   filled: styles.filled,
   outlined: styles.outlined,
-  google: styles.google,
   iconOutlined: styles.iconOutlined,
   iconFilled: styles.iconFilled,
   onlyIcon: styles.onlyIcon,
+  blue: styles.blue,
   red: styles.red,
 }
 

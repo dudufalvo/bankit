@@ -16,6 +16,7 @@ export const Navbar = () => {
   const path = useLocation().pathname
   const { user } = useUser()
 
+
   const handleLogout = () => {
     localStorage.removeItem('token')
     toast.success('Logged out successfully')
@@ -29,10 +30,9 @@ export const Navbar = () => {
           <img src={logoText} alt="logo" />
         </a>
         <div className={styles.links}>
-          <a href='/'className={''}>Dashboard</a>
           <div className={styles.dropdown}>
             <a className={styles.dropdownText} href='/account?tab=settings'>
-              <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/2048px-Avatar_icon_green.svg.png' alt="picture" className={styles.profilePicture} />
+              <img src={user?.image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/2048px-Avatar_icon_green.svg.png'} alt="picture" className={styles.profilePicture} />
               <span className={styles.name}>{user?.username.toUpperCase()}</span>
               <BiChevronDown />
             </a>
@@ -60,8 +60,7 @@ export const Navbar = () => {
         {
           active &&
           <div className={styles.burgerMenu}>
-            <button onClick={() => navigate('/reservations')} className={path.includes('reservations') ? styles.activeLink : ''}>Reservations</button>
-            <button onClick={() => navigate('/notifications')} className={path.includes('notifications') ? styles.activeLink : ''}>Notifications</button>
+            <button onClick={() => navigate('/dashboard')} className={path.includes('dashboard') ? styles.activeLink : ''}>Dashboard</button>
             <button onClick={() => navigate({ pathname: '/account', search: '?tab=settings' })} className={styles.profile}>
               <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/2048px-Avatar_icon_green.svg.png' alt="picture" className={styles.profilePicture} />
               <span className={styles.name}>{user?.first_name.toUpperCase()}</span>

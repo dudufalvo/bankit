@@ -1,0 +1,12 @@
+@import '../../../styles/mixins.scss';
+
+.scheduleModal {
+  @include flex(column, flex-start, center, 3rem);
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .scheduleModal {
+    @include flex(column, center, center, 1.5rem);
+  }
+}

@@ -30,7 +30,7 @@ const InputNumber = ({
     <InputMain label={label} name={name} id={name} isRequired={isRequired}>
         <div className={`${styles.inlineInput} ${valueDisabled && styles.valueDisabled} ${errors[name] ? styles.errorInput : ''}`}>
           {type === 'money' && '€'}
-          <input id={id} {...register(name)} type='number' step='1' placeholder='0' defaultValue={0} value={value} disabled={valueDisabled} />
+          <input id={id} {...register(name)} type='number' step='1' placeholder='0' value={value} disabled={valueDisabled} />
           {errors[name] && <BiErrorCircle className={styles.errorIcon} />}
         </div>
     </InputMain>

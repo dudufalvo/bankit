@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useUser } from 'src/contexts/userContext'
@@ -6,10 +7,10 @@ import { profileValidationSchema, privacyValidationSchema } from 'src/schemas'
 
 import styles from './settings.module.scss'
 
-import axios from 'axios'
 import Button from 'components/Button'
 import InputPassword from 'components/Form/InputPassword'
 import InputText from 'components/Form/InputText'
+import InputFile from 'components/InputFile'
 import Separator from 'components/Separator'
 import toast from 'utils/toast'
 
@@ -18,13 +19,13 @@ type ProfileFormType = {
   last_name: string;
   email: string;
   username: string;
-};
+}
 
 type PrivacyFormType = {
   current_password: string;
   password: string;
   confirm_password: string;
-};
+}
 
 const Settings = () => {
   const { user, updateUserProfile } = useUser()
@@ -48,19 +49,20 @@ const Settings = () => {
       last_name: data.last_name,
       email: data.email,
       username: data.username,
+      is_manager: user.is_manager
     }
 
     updateUserProfile(updatedData)
   }
 
   const hanleUpdateUserPassword = (data: PrivacyFormType) => {
-    axios.put(`${import.meta.env.VITE_API_BASE_URL}/client/password`, { data } ,{ headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
+    axios.put(`${import.meta.env.VITE_API_BASE_URL}/client/update`, { data } ,{ headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
       .then(() => {
-        toast.success('Password updated successfully');
+        toast.success('Password updated successfully')
       })
       .catch(() => {
-        toast.error('Error updating password');
-      });
+        toast.error('Error updating password')
+      })
   }
 
   return (
@@ -73,7 +75,10 @@ const Settings = () => {
             <InputText id='last_name' name='last_name' label='Last Name' placeholder='Insert your last name' />
             <InputText id='username' name='username' label='Username' placeholder='Insert your username' />
             <InputText id='email' name='email' label='Email' placeholder='Insert your email' isDisabled />
-            <Button type='submit' variant='filled' fullWidth handle={profileMethods.handleSubmit(handleProfileUpdate)}>Save</Button>
+            <Button type='submit' fullWidth handle={profileMethods.handleSubmit(handleProfileUpdate)}>Save</Button>
+          </div>
+          <div className={styles.profileLeft}>
+            <InputFile label='Profile Photo' name='image' />
           </div>
         </form>
       </FormProvider>
@@ -84,7 +89,7 @@ const Settings = () => {
           <InputPassword id='current_password' name='current_password' label='Current password' placeholder='Insert current password' />
           <InputPassword id='password' name='password' label='New Password' placeholder='Insert new password' />
           <InputPassword id='confirm_password' name='confirm_password' label='Confirm new password' placeholder='Confirm your new password' />
-          <Button type='submit' variant='filled' fullWidth handle={privacyMethods.handleSubmit(hanleUpdateUserPassword)}>Save</Button>
+          <Button type='submit' fullWidth handle={privacyMethods.handleSubmit(hanleUpdateUserPassword)}>Save</Button>
         </form>
       </FormProvider>
     </>

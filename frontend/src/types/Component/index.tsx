@@ -1,7 +1,7 @@
+
 import type { ReactNode } from 'react'
 import type { ToastTransition } from 'react-toastify'
-import { ToastIcon } from 'react-toastify/dist/types'
-import type { UserDataType } from 'types/User'
+import type { ToastIcon } from 'react-toastify/dist/types'
 
 export type ButtonType = {
   children?: ReactNode,
@@ -9,20 +9,10 @@ export type ButtonType = {
   handle?: () => void,
   disabled?: boolean,
   fullWidth?: boolean,
-  variant?: 'filled' | 'outlined' | 'google' | 'iconOutlined' | 'iconFilled' | 'onlyIcon' | 'red',
+  variant?: 'filled' | 'outlined' | 'google' | 'iconOutlined' | 'iconFilled' | 'onlyIcon' | 'red' | 'blue',
   icon?: ReactNode,
   iconPosition?: 'left' | 'middle' | 'right',
   isActive?: boolean
-}
-
-export type ToggleButtonType = {
-  firstOption: string,
-  secondOption: string,
-  defaultOption?: string | null,
-  label?: string,
-  handleChange: (option: string) => void,
-  disabled?: boolean,
-  fullWidth?: boolean,
 }
 
 export type TabType = {
@@ -56,6 +46,11 @@ export type DropdownOptionType = {
   handle?: () => void
 }
 
+export type ModalBaseType = {
+  isOpen: boolean,
+  handleClosing: () => void
+}
+
 export type DropdownItemType = {
   data: DropdownOptionType,
   dropdownType?: 'search' | 'select',
@@ -63,83 +58,6 @@ export type DropdownItemType = {
   isMulti?: boolean
 }
 
-export type ProfileDataType = {
-  name: string,
-  image: string,
-  user_id: string,
-  tag?: string,
-  value?: number
-}
-
-export type SplitBillType = {
-  bill: {
-    title: string,
-    group_id: string,
-    debtors: {
-      user_id: string,
-      amount: number
-    }[],
-    creditors: {
-      user_id: string,
-      amount: number
-    }[],
-  }
-}
-
-export type ModalBaseType = {
-  isOpen: boolean,
-  handleClosing: () => void
-}
-
-export type ModalEventFormType = {
-  name: string,
-}
-
-export type ModalEventRequestType = {
-  event: {
-    group_id: string,
-    name: ModalEventFormType['name'],
-    user_id: string
-  }
-}
-
-export type ModalAddDateType = {
-  option: {
-    event_id: string | null,
-    date: string,
-  }
-}
-
-export type DateOptionResponseType = {
-  data: {
-    dateoption: DateOptionType
-  }
-}
-
-export type DateOptionType = {
-  id: string,
-  date: string,
-  has_voted: boolean,
-  users: {
-    id: string,
-    image_url: string
-  }[]
-}
-
 export type RequestType<T> = {
   data: { [key: string]: T[] }
-}
-
-export type BillType = {
-  id: string,
-  title: string,
-  group: {
-    id: string,
-    name: string
-  },
-  user_type: 'debtor' | 'creditor',
-  debtors: Omit<UserDataType & { amount: number }, 'email' | 'image_url'>[],
-  creditors: Omit<UserDataType & { amount: number }, 'email' | 'image_url'>[],
-  total_amount: number,
-  has_permission: boolean
 }

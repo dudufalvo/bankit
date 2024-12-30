@@ -146,4 +146,24 @@
       @include size(2rem);
     }
   }
+
+  &.blue {
+    background-color: $blue;
+    border-color: $blue;
+    color: $white;
+
+    &:hover {
+      background-color: $hoverBlue;
+    }
+
+    &:active,
+    &.active {
+      background-color: $darkBlue;
+      border-color: $darkBlue;
+    }
+
+    &:disabled {
+      background-color: $disabledBlue;
+    }
+  }
 }

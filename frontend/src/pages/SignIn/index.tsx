@@ -25,14 +25,8 @@ const SignIn = () => {
   })
 
   const signInUser = async (data: SignInType) => {
-    const userEmail = data.email
-    const users = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users`)
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = users.data.find((user: any) => user.email === userEmail)
-
     const postData = {
-      username: user.username,
+      username: data.username,
       password: data.password,
     }
 
@@ -51,10 +45,9 @@ const SignIn = () => {
     <AuthTemplate type='sign-in' methods={methods} handleAuth={methods.handleSubmit(signInUser)}>
       <form className={styles.signinContentMiddle}>
         <div className={styles.signinInputs}>
-          <InputText label="Email" type="text" name="email" id="email" placeholder="Enter your email" isRequired={true} />
+          <InputText label="Username" type="text" name="username" id="username" placeholder="Enter your username" isRequired={true} />
           <InputPassword id="password" name="password" placeholder="Enter your password" label="Password" isRequired={true} />
         </div>
-
         <div className={styles.signinRememberMe}>
           <Checkbox name='rememberMe' label='Remember me' />
           <a href="/client/forgot-password">Forgot password?</a>

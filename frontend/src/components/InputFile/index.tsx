@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { BiCloudUpload } from 'react-icons/bi'
@@ -7,6 +8,7 @@ import styles from './inputfile.module.scss'
 
 import Button from 'components/Button'
 import InputMain from 'components/Form/InputMain'
+import toast from 'utils/toast'
 
 const width = '1.5rem'
 const height = '1.5rem'
@@ -21,9 +23,10 @@ type InputFileType = {
 }
 
 const InputFile = ({ label, name, isMulti = false }: InputFileType) => {
+  const { register, setValue } = useFormContext()
+
   const [selectedFiles, setSelectedFiles] = useState<Array<File>>([])
   const inputRef = useRef<HTMLInputElement>(null)
-  const { register, setValue } = useFormContext()
 
   const handleClick = () => {
     inputRef.current?.click()
@@ -31,10 +34,17 @@ const InputFile = ({ label, name, isMulti = false }: InputFileType) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target
-
     if (!files) return
 
     if (!isMulti) {
+      axios.post(`${import.meta.env.VITE_API_BASE_URL}/client/update-image`, { image: files[0] }, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'multipart/form-data' } })
+        .then(() => {
+          toast.success('Image updated successfully')
+        })
+        .catch(() => {
+          toast.error('Failed to update image')
+        })
+
       setSelectedFiles([files[0]])
       return
     }

@@ -13,7 +13,7 @@ type FormType = SignUpType | SignInType | RecoverPasswordType | ResetPasswordTyp
 
 type AuthTemplateType<T extends FormType> = {
   children: React.ReactNode,
-  type: 'sign-in' | 'sign-up' | 'loan',
+  type: 'sign-in' | 'sign-up' | 'request-loan',
   methods: UseFormReturn<T>
   handleAuth: () => void
 }
@@ -36,7 +36,7 @@ const AuthTemplate = <T extends FormType>({ children, type, methods, handleAuth 
 
           <div className={styles.authContentBottom}>
             <div className={styles.authButton}>
-              <Button disabled={!methods.formState.isDirty} type='submit' variant='filled' fullWidth={true} handle={handleAuth}>
+              <Button type='submit' variant='filled' fullWidth={true} handle={handleAuth}>
                 {type.charAt(0).toUpperCase() + type.slice(1).replace('-', ' ')}
               </Button>
               {type === 'sign-in' ? 

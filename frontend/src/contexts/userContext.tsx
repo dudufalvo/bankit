@@ -5,29 +5,32 @@ import useRequest from 'hooks/useRequest'
 import toast from 'utils/toast'
 
 type UserType = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  username: string;
+  first_name: string
+  last_name: string
+  email: string
+  username: string
+  image: string
+  is_manager: boolean
 }
 
 type ProfileFormType = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  username: string;
-};
+  first_name: string
+  last_name: string
+  email: string
+  username: string
+  is_manager: boolean
+}
 
 type ContextType = {
   user: UserType;
   updateUserProfile: (params?: ProfileFormType | undefined) => void;
 }
 
-const UserContext = createContext<ContextType>({ user: { first_name: '', last_name: '', email: '', username: '' }, updateUserProfile: () => { } })
+const UserContext = createContext<ContextType>({ user: { first_name: '', last_name: '', email: '', username: '', image: '', is_manager: false }, updateUserProfile: () => { } })
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const { data, doRequest: getUser } = useRequest(api.getUser, {
-    onError: () => localStorage.removeItem('token'),
+    onError: () => localStorage.removeItem('token')
   })
 
   const { doRequest: updateUserProfile } = useRequest<ProfileFormType>(api.updateUser, {

@@ -11,7 +11,6 @@ import styles from './selectdrop.module.scss'
 import { dropDownStyles } from './styles'
 
 import DropdownItem from 'components/DropdownItem'
-import Tag from 'components/Tag'
 
 const width = '1.75rem'
 const height = '1.75rem'
@@ -95,13 +94,6 @@ const SelectDropdown = ({
     if (!disableTags) setSelectedOptions(newValue as DropdownOptionType[])
   }
 
-  const handleRemoveOption = (value: string) => {
-    if (!selectedOptions) return
-
-    const newOptions = selectedOptions.filter(option => option.value !== value)
-    storeOptions(newOptions)
-  }
-
   useEffect(() => {
     if (!options || !addExtraOption) return
 
@@ -134,11 +126,6 @@ const SelectDropdown = ({
         styles={dropDownStyles}
         onChange={storeOptions}
       />
-      <div className={styles.optionsContainer}>
-        {isMulti && !disableTags
-          ? selectedOptions?.map((option, index) => <Tag key={index} value={option.value} handle={handleRemoveOption} >{option.label} </Tag>)
-          : null}
-      </div>
     </label>
   )
 }

@@ -3,4 +3,13 @@
 .loanCalculator {
   @include size(100%, auto);
   @include flex(column);
+
+  span {
+    @include text();
+  }
+
+  .loanCalculatorMiddle {
+    @include size(100%, auto);
+    @include flex(row);
+  }
 }
