@@ -16,6 +16,7 @@ stepfunctions_client = boto3.client('stepfunctions', region_name='us-east-1')
 
 S3_BUCKET_NAME = 'bankit-user-images'
 SM_ARN = "arn:aws:states:us-east-1:533267126312:stateMachine:MyStateMachine-CalculateCreditScore"
+SM_ARN_DECISION = "arn:aws:states:us-east-1:533267126312:stateMachine:MyStateMachine-NotifyClientAboutManagerDecision"
 
 
 def get_user_from_jwt(request):
@@ -144,3 +145,18 @@ def run_step_function_ccs(input_payload):
       "status": "error",
       "message": "An unexpected error occurred: " + str(e)
     }
+
+
+def run_step_function_notify_decision(input_payload):
+  try:
+    response = stepfunctions_client.start_execution(
+      stateMachineArn=SM_ARN_DECISION,
+      input=json.dumps(input_payload)
+    )
+    execution_arn = response["executionArn"]
+    print(f"Execution started with ARN: {execution_arn}")
+
+    return response
+
+  except ClientError as e:
+    return JsonResponse({"error": str(e)}, status=500)

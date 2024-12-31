@@ -22,5 +22,6 @@ urlpatterns = [
   path('manager/list-loan-requests', views.get_loan_requests, name='get_loan_requests'),
   path('manager/list-loan-requests/<int:loan_id>', views.get_loan_request, name='get_loan_request'),
   path('manager/schedule-interview', views.schedule_interview, name='schedule_interview'),
-  path('manager/list-interviews', views.get_interviews, name='get_interviews')
+  path('manager/list-interviews', views.get_interviews, name='get_interviews'),
+  path('manager/loan-decision', views.manager_final_decision, name='manager_final_decision')
 ]

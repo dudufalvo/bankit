@@ -98,6 +98,17 @@ const Home = () => {
   }
 
 
+  const handleUpdateLoan = (decision: number, id: number) => {
+    axios.put(`${import.meta.env.VITE_API_BASE_URL}/manager/loan-decision/`, { decision: decision, loan_id: id  }, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
+      .then(() => {
+        toast.success('Decision made sucessfully!')
+      })
+      .catch(() => {
+        toast.error('Failed to make decision!')
+      })
+  }
+
+
   useEffect(() => { 
     if (user?.is_manager) {
       axios.get(`${import.meta.env.VITE_API_BASE_URL}/manager/list-loan-requests`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
@@ -186,10 +197,10 @@ const Home = () => {
                           <StyledTableCell align="right">
                             {
                             /* eslint-disable-next-line no-inline-styles/no-inline-styles */
-                            row.status === 'waiting' && <div style={{ display: 'flex', gap: '0.5rem' }}>
-                              <Button></Button>
+                            (row.status === 'waiting' && row.manager === '-') && <div style={{ display: 'flex', gap: '0.5rem' }}>
+                              <Button handle={() => handleUpdateLoan(3, row.id)}></Button>
                               <Button handle={() => handleInterview(row.id)} variant='blue'></Button>
-                              <Button variant='red'></Button>
+                              <Button handle={() => handleUpdateLoan(1, row.id)} variant='red'></Button>
                             </div>
                             }
                           </StyledTableCell>

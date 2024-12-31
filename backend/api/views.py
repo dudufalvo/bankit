@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 from .decorators import authentication, is_manager
 from .models import CustomUser, LoanRequest, Interview
-from .utils import search_face_in_dynamodb, upload_image_to_s3_and_dynamodb, get_presigned_url_from_s3_and_dynamodb, run_step_function_ccs
+from .utils import search_face_in_dynamodb, upload_image_to_s3_and_dynamodb, get_presigned_url_from_s3_and_dynamodb, run_step_function_ccs, run_step_function_notify_decision
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer, LoanRequestSerializer, InterviewSerializer
 
 
@@ -102,6 +102,27 @@ def get_client_loan_requests(request):
     return JsonResponse({"error": str(e)}, status=500)
 
 
+@api_view(['POST'])
+@authentication
+def manager_final_decision(request):
+  try:
+    loan = LoanRequest.objects.filter(id=request.loan_id)
+    loan.update(status=request.decision)
+
+    user = loan.requester
+    data = {
+      "preferred_method_is_email": user.preferred_contact_method_is_email,
+      "email": user.email,
+      "phone_number": user.phone_number,
+    }
+    run_step_function_notify_decision
+
+    return JsonResponse(status=200)
+
+  except Exception as e:
+    return JsonResponse({"error": str(e)}, status=500)
+
+
 @api_view(['GET'])
 @authentication
 def get_client_interviews(request):
@@ -164,8 +185,6 @@ def loan_request(request):
     }
 
     step_function_response = run_step_function_ccs(payload_data)
-    print('===============')
-    print(step_function_response)
 
     if step_function_response['status'] != 200:
       return JsonResponse({'error': 'failed to calculate credit score', 'details': step_function_response}, status=500)
