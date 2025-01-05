@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'django-env.eba-5p8ntduv.us-east-1.elasticbeanstalk.com']
 
-CORS_ALLOWED_ORIGINS = ['https://bankitapp.vercel.app']
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
